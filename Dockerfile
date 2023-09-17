@@ -21,3 +21,9 @@ RUN echo "from flask import Flask" > healthz_app.py && \
 
 # Set the command to run the Flask app
 CMD ["python3", "healthz_app.py"]
+RUN apt-get install -y nodejs npm
+RUN apt-get install -y git
+RUN git clone https://github.com/aavetis/github-chatgpt-plugin.git /root/github-chatgpt-plugin
+RUN cd /root/github-chatgpt-plugin && npm install
+RUN cd /root/github-chatgpt-plugin && npm run build
+CMD ["npm", "run", "start", "--prefix", "/root/github-chatgpt-plugin"]
